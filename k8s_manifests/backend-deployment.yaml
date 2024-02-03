@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: techdemo-backend
+  namespace: workshop
+  labels:
+    role: techdemo-backend
+    env: demo
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      role: techdemo-backend
+  template:
+    metadata:
+      labels:
+        role: techdemo-backend
+    spec:
+      containers:
+      - name: techdemo-backend
+        image: public.ecr.aws/f5n5l7s0/techdome-application-backend:v3
+        imagePullPolicy: Always
+        env:
+          - name: MONGO_URI
+            valueFrom:
+              secretKeyRef:
+                name: mongo-sec
+                key: MONGO_URI
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongo-sec
+                key: MONGO_USERNAME
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongo-sec
+                key: MONGO_PASSWORD
+          - name: MONGO_DATA
+            valueFrom:
+              secretKeyRef:
+                name: mongo-sec
+                key: MONGO_DB 
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /ok
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+             path: /ok
+             port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+
