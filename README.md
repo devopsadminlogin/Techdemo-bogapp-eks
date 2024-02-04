@@ -103,7 +103,7 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 ---
-# 8. Setup EKS Cluster
+## 8. Setup EKS Cluster
 Create an EKS cluster.
 ```
 eksctl create cluster --name techdemo-blog-app-cluster --region us-west-2 --node-type t2.medium --nodes-min 2 --nodes-max 2
@@ -143,8 +143,8 @@ data:
   MONGO_URI: bW9uZ29kYjovL2FkbWluMTIzQHRlY2hkZW1vRGI6MjcwMTcvd29ya3Nob3A=
   ```
   ---
-  ## 9. Kubernetes Deployments
-  ### 9.1  MongoDB Configuration
+## 9. Kubernetes Deployments
+### 9.1  MongoDB Configuration
  * MongoDB Deployment (`mongo-deployment.yml`): CMD: `vim mongodb-deploy.yml`
 ```
 apiVersion: apps/v1
