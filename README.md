@@ -7,7 +7,6 @@ exciting prizes!_
 
 ## Table of contents
 
-- [Techdemo-blog EKS Deployment Documentation](#techdemo-blog-eks-deployment-documentation)
 - [1. Introduction](#1-introduction)
 - [2. Prerequisites](#2-prerequisites)
 - [3. EC2 Setup](#3-ec2-setup)
@@ -16,12 +15,12 @@ exciting prizes!_
 - [6. Install kubectl](#6-install-kubectl)
 - [7. Install eksctl](#7-install-eksctl)
 - [8. Setup EKS Cluster](#8-setup-eks-cluster)
-	- [8.1 Create Namespace:](#9-create-namespace)
-	- [8.2. Secrets Configuration](#101-secrets-configuration)
-- [9. Kubernetes Deployments](#11-kubernetes-deployments)
-	- [9.1 MongoDB Configuration](#111--mongodb-configuration)
-	- [9.2 Backend Deployment](#112-backend-deployment)
-	- [9.3 Frontend Deployment](#113-frontend-deployment)
+	- [8.1 Create Namespace:](#8.1-create-namespace)
+	- [8.2. Secrets Configuration](#8.2-secrets-configuration)
+- [9. Kubernetes Deployments](#9-kubernetes-deployments)
+	- [9.1 MongoDB Configuration](#901--mongodb-configuration)
+	- [9.2 Backend Deployment](#92-backend-deployment)
+	- [9.3 Frontend Deployment](#93-frontend-deployment)
 	- [9.4 Network Policy Configuration](#114-network-policy-configuration)
 - [10. Issues and Resolutions](#10-issues-and-resolutions)
 	- [Issue 10.1: Liveness Probe Fails - Container Restarting](#issue-101-liveness-probe-fails---container-restarting)
@@ -33,17 +32,17 @@ exciting prizes!_
 		- [4. MongoDB Atlas IP Whitelist:](#4-mongodb-atlas-ip-whitelist)
 ---
 
-# 1. Introduction
+## 1. Introduction
 This document provides detailed information on deploying a Node.js backend application with MongoDB Atlas on a Kubernetes cluster. It covers prerequisites, issues encountered, resolutions, and configuration details.
 
 ---
-# 2. Prerequisites
+## 2. Prerequisites
 Ensure the following prerequisites are met before proceeding with the deployment:
 * Access to a Kubernetes cluster (e.g., AWS EKS).
 * Docker images for the Node.js backend and MongoDB are pushed to a container registry (e.g., Amazon ECR).
 * MongoDB Atlas cluster is set up, and connection details are available
 ---
- # 3. EC2 Setup
+## 3. EC2 Setup
 * Launch an Ubuntu instance in your favorite region.
 * SSH into the instance from your local machine.
 ```
@@ -51,7 +50,7 @@ Ensure the following prerequisites are met before proceeding with the deployment
 ssh -i your-key.pem ubuntu@your-ec2-instance-ip
 ```
 ---
-# 4. Install AWS CLI v2
+## 4. Install AWS CLI v2
 * Download and install AWS CLI v2.
 ```
 # Example installation commands
@@ -117,7 +116,7 @@ aws eks update-kubeconfig --region us-west-2 --name techdemo-blog-app-cluster
 ```
 kubectl get nodes 
 ```
----
+
 ### 8.1 Create Namespace:
 The `kubectl create namespace workshop` command is used to create a new Kubernetes namespace named "workshop." Namespaces provide a way to scope and segregate resources within a Kubernetes cluster.
 
@@ -125,7 +124,7 @@ The `kubectl create namespace workshop` command is used to create a new Kubernet
 kubectl create namespace workshop
 kubectl config set-context --current --namespace workshop
 ```
----
+
 ### 8.2 Secrets Configuration
 The following secrets are used for secure configuration: `vim secrats.yml`
 ```
